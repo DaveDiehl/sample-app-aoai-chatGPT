@@ -15,13 +15,23 @@ export async function conversationApi(options: ConversationRequest, abortSignal:
     return response;
 }
 
-export async function getUserInfo(): Promise<UserInfo[]> {
-    const response = await fetch('/.auth/me');
-    if (!response.ok) {
-        console.log("No identity provider found. Access to chat will be blocked.")
-        return [];
-    }
+export type UserInfo = {
+    access_token: string;
+    expires_on: string;
+    id_token: string;
+    provider_name: string;
+    user_claims: any[];
+    user_id: string;
+};
 
-    const payload = await response.json();
-    return payload;
+export async function getUserInfo(): Promise<UserInfo[]> {
+    return [{
+        access_token: "token",
+        expires_on: "1/1/2030",
+        id_token: "1",
+        provider_name: "test",
+        user_claims: [],
+        user_id: "something"
+        // Add any other properties required by the UserInfo type
+    }];
 }
